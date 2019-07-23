@@ -1,11 +1,15 @@
-<h2>The Post Create Component</h2>
-
 <!-- <textarea row="6" type="text" [value]="newPost" #postInput>{{ newPost }}</textarea> -->
 <!-- <textarea row="6" type="text" #postInput>{{ newPost }}</textarea> one way binding -->
-<textarea row="6" type="text" [(ngModel)]='enteredValue'>{{ newPost }}</textarea>
+<mat-card>
+	<mat-form-field>
+		<textarea matInput row="6" [(ngModel)]='enteredValue'>{{ newPost }}</textarea>
+	</mat-form-field>
+	<button 
+	mat-raised-button 
+	color="accent"
+	(click)='onAddPost()'>Save Post</button>
 
-<br>
+</mat-card>
+
 <!-- <button class="btn btn-primary" (click)='onAddPost(postInput)'>Save Post</button> -->
 
-<button class="btn btn-primary" (click)='onAddPost()'>Save Post</button>
-<p>{{ newPost }}</p>
