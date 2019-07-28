@@ -2,7 +2,11 @@
 <!-- <textarea row="6" type="text" #postInput>{{ newPost }}</textarea> one way binding -->
 <mat-card>
     <mat-form-field>
-        <textarea row="6" matInput [(ngModel)]='enteredValue'>{{ newPost }}</textarea>
+        <input matInput type="text" [(ngModel)]="enteredTitle">
+    </mat-form-field>
+
+    <mat-form-field>
+        <textarea row="6" matInput [(ngModel)]='enteredContent'></textarea>
     </mat-form-field>
     <button color="accent" mat-raised-button (click)='onAddPost()'>Save Post</button>
 
