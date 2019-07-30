@@ -13,11 +13,12 @@ import { PostCreateComponent } from './posts/post-create/post-create.component';
 
 import { PostListComponent } from './posts/post-list/post-list.component';
 import { HeaderComponent } from './header/header.component';
+import { PostService } from './posts/post.service';
 
 
 
 @NgModule({
-  declarations: [
+  declarations: [ //your components
     AppComponent,
     PostsComponent,
     PostCreateComponent,
@@ -26,7 +27,7 @@ import { HeaderComponent } from './header/header.component';
     HeaderComponent
 
   ],
-  imports: [
+  imports: [ //for module you want to bring in
     BrowserModule,
     AppRoutingModule,
     FormsModule,
@@ -38,7 +39,7 @@ import { HeaderComponent } from './header/header.component';
     MatExpansionModule
 
   ],
-  providers: [],
+  providers: [PostService], //for services
   bootstrap: [AppComponent]
 })
 export class AppModule { }
