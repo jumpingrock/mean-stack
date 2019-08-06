@@ -14,7 +14,8 @@ import { PostCreateComponent } from './posts/post-create/post-create.component';
 
 import { PostListComponent } from './posts/post-list/post-list.component';
 import { HeaderComponent } from './header/header.component';
-import { PostService } from './posts/post.service';
+import { PostsService } from './posts/post.service';
+
 
 
 
@@ -41,7 +42,7 @@ import { PostService } from './posts/post.service';
     HttpClientModule
 
   ],
-  providers: [PostService], //for services
+  providers: [], //for services
   bootstrap: [AppComponent]
 })
 export class AppModule { }
