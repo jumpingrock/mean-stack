@@ -3,6 +3,7 @@ import { Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { stringify } from '@angular/compiler/src/util';
 
 @Injectable({providedIn: 'root'})
 
@@ -35,8 +36,7 @@ export class PostsService {
         return this.postsUpdated.asObservable();
     }
     getPost(id: string) {
-        console.log(id);
-        return {...this.posts.find(p => p.id === id)}
+        return this.http.get<{_id: string, title: string, content: string}>('http://localhost:3000/api/posts/' + id);
     }
 
     addPost(istitle: string, iscontent: string) {
@@ -54,7 +54,13 @@ export class PostsService {
     updatePost(id: string, title: string, content: string) {
         const post: Post = {id: id, title: title, content: content};
         this.http.put("http://localhost:3000/api/posts/" + id, post)
-        .subscribe(res => console.log(res));
+        .subscribe(res => {
+            const updatedPosts = [...this.posts];
+            const oldPostIndex = updatedPosts.findIndex(p => p.id === post.id);
+            updatedPosts[oldPostIndex] = post;
+            this.posts = updatedPosts;
+            this.postsUpdated.next([...this.posts])
+        });
     }
 
     deletePost = (postId: string) => {
