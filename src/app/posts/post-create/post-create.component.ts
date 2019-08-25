@@ -3,7 +3,7 @@ import { Post } from '../post.model';
 import { FormGroup, FormControl, Validator, Validators } from '@angular/forms';
 import { PostsService } from '../post.service';
 import { ActivatedRoute, ParamMap } from '@angular/router';
-import { mimeType } from './mime-Type.validator';
+import { mimeType } from './mime-type.validator';
 
 @Component({
   selector: 'app-post-create',
