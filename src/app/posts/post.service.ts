@@ -5,6 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { stringify } from '@angular/compiler/src/util';
 import { Router } from '@angular/router';
+import { ConstantPool } from '@angular/compiler';
 
 @Injectable({providedIn: 'root'})
 
@@ -22,7 +23,8 @@ export class PostsService {
                 return {
                     title: post.title,
                     content: post.content,
-                    id: post._id
+                    id: post._id,
+                    imagePath: post.imagePath
                 };
             });
         }))
@@ -49,10 +51,14 @@ export class PostsService {
         this.http.post<{message: string, postId: string}>
         ('http://localhost:3000/api/posts', postData)
         .subscribe((responseData) => {
-            // console.log(responseData.message);
-            const post: Post = {id: responseData.postId, title: istitle, content: iscontent};
-            // const id = responseData.postId;
-            // post.id = id;
+            console.log(responseData);
+            const post: Post = {
+                id: responseData.post.id,
+                title: istitle,
+                content: iscontent,
+                imagePath: responseData.post.imagePath
+            };
+            console.log(post);
             this.posts.push(post);
             this.postsUpdated.next([...this.posts]);
             this.router.navigate(['/']);
@@ -60,7 +66,7 @@ export class PostsService {
 
     }
     updatePost(id: string, title: string, content: string) {
-        const post: Post = {id: id, title: title, content: content};
+        const post: Post = {id: id, title: title, content: content, imagePath: null};
         this.http.put("http://localhost:3000/api/posts/" + id, post)
         .subscribe(res => {
             const updatedPosts = [...this.posts];
