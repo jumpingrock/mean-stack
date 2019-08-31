@@ -5,12 +5,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 
 import { fromEventPattern } from 'rxjs';
-import {MatInputModule, 
-  MatCardModule, 
-  MatButtonModule, 
-  MatToolbarModule, 
-  MatExpansionModule, 
-  MatProgressSpinnerModule} from '@angular/material';
+import {MatInputModule,
+  MatCardModule,
+  MatButtonModule,
+  MatToolbarModule,
+  MatExpansionModule,
+  MatProgressSpinnerModule,
+  MatPaginatorModule} from '@angular/material';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -45,7 +46,8 @@ import { PostsService } from './posts/post.service';
     MatToolbarModule,
     MatExpansionModule,
     MatProgressSpinnerModule,
-    HttpClientModule
+    HttpClientModule,
+    MatPaginatorModule
 
   ],
   providers: [], //for services
