@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { fromEventPattern } from 'rxjs';
 import {MatInputModule,
@@ -23,6 +23,7 @@ import { HeaderComponent } from './header/header.component';
 import { PostsService } from './posts/post.service';
 import { LoginComponent } from './auth/login/login.component';
 import { SignupComponent } from './auth/signup/signup.component';
+import { AuthInterceptor } from './auth/auth-interceptor';
 
 
 
@@ -54,7 +55,7 @@ import { SignupComponent } from './auth/signup/signup.component';
     FormsModule
 
   ],
-  providers: [], //for services
+  providers: [{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}], //for services
   bootstrap: [AppComponent]
 })
 export class AppModule { }
