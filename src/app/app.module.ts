@@ -11,7 +11,8 @@ import {MatInputModule,
   MatToolbarModule,
   MatExpansionModule,
   MatProgressSpinnerModule,
-  MatPaginatorModule} from '@angular/material';
+  MatPaginatorModule,
+  MatDialogModule} from '@angular/material';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -24,6 +25,8 @@ import { PostsService } from './posts/post.service';
 import { LoginComponent } from './auth/login/login.component';
 import { SignupComponent } from './auth/signup/signup.component';
 import { AuthInterceptor } from './auth/auth-interceptor';
+import { ErrorInterceptor } from './error-interceptor';
+import { ErrorComponent } from './error/error.component';
 
 
 
@@ -36,7 +39,8 @@ import { AuthInterceptor } from './auth/auth-interceptor';
     PostListComponent,
     HeaderComponent,
     LoginComponent,
-    SignupComponent
+    SignupComponent,
+    ErrorComponent
 
   ],
   imports: [ //for module you want to bring in
@@ -50,12 +54,15 @@ import { AuthInterceptor } from './auth/auth-interceptor';
     MatToolbarModule,
     MatExpansionModule,
     MatProgressSpinnerModule,
-    HttpClientModule,
     MatPaginatorModule,
-    FormsModule
-
+    FormsModule,
+    MatPaginatorModule,
+    MatDialogModule,
+    HttpClientModule,
   ],
-  providers: [{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}], //for services
-  bootstrap: [AppComponent]
+  providers: [{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},//for services
+              {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true}],
+  bootstrap: [AppComponent],
+  entryComponents: [ErrorComponent]
 })
 export class AppModule { }

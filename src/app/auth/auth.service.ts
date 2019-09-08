@@ -5,7 +5,6 @@ import { Subject } from 'rxjs';
 import { Router } from '@angular/router';
 
 @Injectable({ providedIn: 'root'})
-
 export class AuthService {
     private isAuthenticated = false;
     private token: string;
@@ -21,19 +20,22 @@ export class AuthService {
     getIsAuth() {
         return this.isAuthenticated;
     }
-    getAuthStatusListener() {
-        return this.authStatusListener.asObservable();
-    }
     getUserId() {
         return this.userId;
     }
-
+    getAuthStatusListener() {
+        return this.authStatusListener.asObservable();
+    }
     createUser(email: string, password: string) {
         const authData: AuthData = {email: email, password: password};
-        this.http.post('http://localhost:3000/api/user/signup', authData)
-        .subscribe(response => {
-            console.log(response);
-            this.router.navigate(['/login']);
+        this.http
+        .post('http://localhost:3000/api/user/signup', authData)
+        .subscribe(() => {
+            // console.log(response);
+            this.router.navigate(['/']);
+        }, error => {
+            console.log(error);
+            this.authStatusListener.next(false);
         });
     }
 
@@ -58,6 +60,9 @@ export class AuthService {
                 this.router.navigate(['/']);
             }
             console.log(response.token);
+        }, error => {
+
+            this.authStatusListener.next(false);
         });
     }
     setAuthTimer(duration: number) {
