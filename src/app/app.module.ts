@@ -28,9 +28,6 @@ import { AuthInterceptor } from './auth/auth-interceptor';
 import { ErrorInterceptor } from './error-interceptor';
 import { ErrorComponent } from './error/error.component';
 
-
-
-
 @NgModule({
   declarations: [ //your components
     AppComponent,

@@ -7,6 +7,10 @@ import { stringify } from '@angular/compiler/src/util';
 import { Router } from '@angular/router';
 import { ConstantPool } from '@angular/compiler';
 import { post } from 'selenium-webdriver/http';
+import { environment } from '../../environments/environment';
+
+const BACKEND_URL = environment.apiLocalUrl + '/posts/';
+
 
 @Injectable({providedIn: 'root'})
 
@@ -19,7 +23,7 @@ export class PostsService {
     getPosts(postsPerPage: number, currentPage: number) {
         const queryParams = `?pagesize=${postsPerPage}&currentpage=${currentPage}`;
         this.http
-        .get<{message: string, posts: any, maxPosts: number}>('http://localhost:3000/api/posts' + queryParams)
+        .get<{message: string, posts: any, maxPosts: number}>(BACKEND_URL + queryParams)
         .pipe(map((postData) => {
             return {
                 maxPosts: postData.maxPosts,
@@ -54,7 +58,7 @@ export class PostsService {
             content: string,
             imagePath: string,
             creator: string
-        }>('http://localhost:3000/api/posts/' + id);
+        }>(BACKEND_URL + id);
     }
 
     addPost(istitle: string, iscontent: string, image: File) {
@@ -64,7 +68,7 @@ export class PostsService {
         postData.append('image', image, istitle);
         // const post: Post = {id: null, title: istitle, content: iscontent};
         this.http.post<{ message: string, post: Post }>
-        ('http://localhost:3000/api/posts', postData)
+        (BACKEND_URL, postData)
         .subscribe(responseData => {
             this.router.navigate(['/']);
         });
@@ -87,7 +91,7 @@ export class PostsService {
                 creator: null
             }
         }
-        this.http.put("http://localhost:3000/api/posts/" + id, postData)
+        this.http.put(BACKEND_URL + id, postData)
         .subscribe(res => {
             this.router.navigate(['/']);
         });
@@ -95,7 +99,7 @@ export class PostsService {
 
     deletePost = (postId: string) => {
         console.log(postId);
-        return this.http.delete('http://localhost:3000/api/posts/' + postId);
+        return this.http.delete(BACKEND_URL + postId);
         // .subscribe(() => {
         //     console.log('Deleted!');
         //     const updatedPosts = this.posts.filter(post => post.id !== postId);
